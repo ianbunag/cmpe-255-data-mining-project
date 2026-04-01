@@ -16,7 +16,6 @@ def compare_transformations(df: pd.DataFrame):
     skew_log1p = {}
     skew_cbrt = {}
     skew_yeo_johnson = {}
-    skew_yeo_johnson_inverse = {}
 
     for feature in df_transforms.columns:
         if not is_numeric_dtype(df_transforms[feature]):
@@ -25,7 +24,6 @@ def compare_transformations(df: pd.DataFrame):
             skew_log1p[feature] = 'N/A'
             skew_cbrt[feature] = 'N/A'
             skew_yeo_johnson[feature] = 'N/A'
-            skew_yeo_johnson_inverse[feature] = 'N/A'
             continue
 
         df_transforms[PREFIX_SQRT + feature] = np.sqrt(df_transforms[feature])
@@ -46,5 +44,4 @@ def compare_transformations(df: pd.DataFrame):
         'Log transformation': skew_log1p,
         'Cube root': skew_cbrt,
         'Yeo-Johnson Transform': skew_yeo_johnson,
-        'Yeo-Johnson Inverse Transform': skew_yeo_johnson_inverse
     })

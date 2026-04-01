@@ -2,7 +2,7 @@ import os
 import joblib
 import re
 
-dump_directory = os.path.join(os.getcwd(), "dump")
+dump_directory = os.path.join(os.path.dirname(__file__), 'serialize_dump')
 
 def dump_to_file(variable, name):
     if not os.path.exists(dump_directory):

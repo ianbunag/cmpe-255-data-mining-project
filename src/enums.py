@@ -156,3 +156,11 @@ rv_keys: RespiratoryVirusKeys = {
     'SEASON_FLU_PED_DEATHS': 'SEASON_FLU_PED_DEATHS',
     'SEASON_RSV_PED_DEATHS': 'SEASON_RSV_PED_DEATHS',
 }
+
+Prefixes = TypedDict('Prefixes', {
+    '03_30_data_preparation_yeo_johnson_': str,
+})
+
+prefixes: Prefixes = {
+    '03_30_data_preparation_yeo_johnson_': '03_30_data_preparation_yeo_johnson_',
+}

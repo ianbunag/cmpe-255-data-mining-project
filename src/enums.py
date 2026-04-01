@@ -159,8 +159,10 @@ rv_keys: RespiratoryVirusKeys = {
 
 Prefixes = TypedDict('Prefixes', {
     '03_30_data_preparation_yeo_johnson_': str,
+    '03_30_data_preparation_respiratory_virus_dashboard_': str,
 })
 
 prefixes: Prefixes = {
     '03_30_data_preparation_yeo_johnson_': '03_30_data_preparation_yeo_johnson_',
+    '03_30_data_preparation_respiratory_virus_dashboard_': '03_30_data_preparation_respiratory_virus_dashboard_',
 }

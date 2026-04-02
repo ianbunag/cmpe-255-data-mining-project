@@ -254,3 +254,21 @@ prefixes: Prefixes = {
     '03_30_data_preparation_respiratory_virus_dashboard_': '03_30_data_preparation_respiratory_virus_dashboard_',
     '04_01_data_preparation_': '04_01_data_preparation_'
 }
+
+File = TypedDict('File', {
+    'data/02-28-open-meteo-base.csv': str,
+    'data/02-28-respiratory-virus-dashboard-base.csv': str,
+    'data/03-26-open-meteo-pre-narrowed.csv': str,
+    'data/03-26-respiratory-virus-dashboard-pre-narrowed.csv': str,
+    'data/04-01-open-meteo-cleaned-aggregated.csv': str,
+    'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv': str,
+})
+
+file: File = {
+    'data/02-28-open-meteo-base.csv': 'data/02-28-open-meteo-base.csv',
+    'data/02-28-respiratory-virus-dashboard-base.csv': 'data/02-28-respiratory-virus-dashboard-base.csv',
+    'data/03-26-open-meteo-pre-narrowed.csv': 'data/03-26-open-meteo-pre-narrowed.csv',
+    'data/03-26-respiratory-virus-dashboard-pre-narrowed.csv': 'data/03-26-respiratory-virus-dashboard-pre-narrowed.csv',
+    'data/04-01-open-meteo-cleaned-aggregated.csv': 'data/04-01-open-meteo-cleaned-aggregated.csv',
+    'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv': 'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv',
+}

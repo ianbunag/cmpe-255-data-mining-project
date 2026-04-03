@@ -1,6 +1,9 @@
+import numpy as np
 import pandas as pd
 
 from pandas.api.types import is_numeric_dtype
+from scipy import stats
+
 
 def understand_features(df: pd.DataFrame, measurements: dict, descriptions: dict) -> pd.DataFrame:
     df.info()
@@ -40,7 +43,7 @@ def assess_features(df: pd.DataFrame, measurements: dict) -> pd.DataFrame:
         'Duplicate Percentage': df_duplicate_percentages
     })
 
-def find_central_tendency(df: pd.DataFrame, measurements: dict) -> pd.DataFrame:
+def find_central_tendency(df: pd.DataFrame, measurements: dict, rounding : int | None = 2) -> pd.DataFrame:
     means = {}
     medians = {}
     skews = {}
@@ -54,9 +57,9 @@ def find_central_tendency(df: pd.DataFrame, measurements: dict) -> pd.DataFrame:
             skew_directions[key] = 'N/A'
             continue
 
-        means[key] = round(df[key].mean(), 2)
-        medians[key] = round(df[key].median(), 2)
-        skew = round(df[key].skew(), 2)
+        means[key] = round(df[key].mean(), rounding)
+        medians[key] = round(df[key].median(), rounding)
+        skew = round(df[key].skew(), rounding)
         skews[key] = skew
 
         if -0.5 <= skew <= 0.5:
@@ -77,3 +80,32 @@ def find_central_tendency(df: pd.DataFrame, measurements: dict) -> pd.DataFrame:
         'Skewness': skews,
         'Skew Direction': skew_directions
     })
+
+def measure_variability(df: pd.DataFrame, rounding: int | None = 2) -> pd.DataFrame:
+    table_columns = ['Feature', 'q1', 'q3', 'iqr', 'std_dev', 'cv', 'lower_limit', 'upper_limit']
+    table_rows = []
+
+    for key in df.columns:
+        if not is_numeric_dtype(df[key]):
+            continue
+
+        v = df[key].dropna()
+        q1 = round(np.percentile(v, 25), rounding)
+        q3 = round(np.percentile(v, 75), rounding)
+        iqr = round(stats.iqr(v), rounding)
+        lower_limit = round(q1 - 1.5 * iqr, rounding)
+        upper_limit = round(q3 + 1.5 * iqr, rounding)
+        std_dev = round(np.std(v), rounding)
+        cv = round(stats.variation(v), rounding)
+        table_rows.append([
+            key,
+            q1,
+            q3,
+            iqr,
+            std_dev,
+            cv,
+            lower_limit,
+            upper_limit
+        ])
+
+    return pd.DataFrame(data=table_rows, columns=table_columns)

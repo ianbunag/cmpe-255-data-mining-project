@@ -157,7 +157,7 @@ rv_keys: RespiratoryVirusKeys = {
     'SEASON_RSV_PED_DEATHS': 'SEASON_RSV_PED_DEATHS',
 }
 
-Keys = TypedDict('Keys', {
+PrepKeys = TypedDict('PrepKeys', {
     'us_aqi (USAQI)': str,
     'us_aqi_pm2_5 (USAQI)': str,
     'us_aqi_pm10 (USAQI)': str,
@@ -200,11 +200,7 @@ Keys = TypedDict('Keys', {
     'RSV_DEATHS_PER': str,
 })
 
-keys: Keys = {
-    'SEASON': 'SEASON',
-    'WEEKENDING': 'WEEKENDING',
-    'MMWR_WEEK': 'MMWR_WEEK',
-    'MMWR_YEAR': 'MMWR_YEAR',
+prep_keys: PrepKeys = {
     'us_aqi (USAQI)': 'us_aqi (USAQI)',
     'us_aqi_pm2_5 (USAQI)': 'us_aqi_pm2_5 (USAQI)',
     'us_aqi_pm10 (USAQI)': 'us_aqi_pm10 (USAQI)',
@@ -222,6 +218,10 @@ keys: Keys = {
     'pm2_5 (μg/m³)': 'pm2_5 (μg/m³)',
     'carbon_monoxide (μg/m³)': 'carbon_monoxide (μg/m³)',
     'pm10 (μg/m³)': 'pm10 (μg/m³)',
+    'SEASON': 'SEASON',
+    'WEEKENDING': 'WEEKENDING',
+    'MMWR_WEEK': 'MMWR_WEEK',
+    'MMWR_YEAR': 'MMWR_YEAR',
     'COV_POSITIVES': 'COV_POSITIVES',
     'COV_TOTAL_TESTS': 'COV_TOTAL_TESTS',
     'COV_TP': 'COV_TP',
@@ -243,6 +243,24 @@ keys: Keys = {
     'RSV_DEATHS_PER': 'RSV_DEATHS_PER',
 }
 
+Keys = TypedDict('Keys', {
+    'RSV_TP_LEVEL': str,
+    'nitrogen_dioxide (μg/m³)': str,
+    'carbon_monoxide (μg/m³)': str,
+    'uv_index ()': str,
+    'ozone (μg/m³)': str,
+    'MMWR_WEEK': str,
+})
+
+keys: Keys = {
+    'RSV_TP_LEVEL': 'RSV_TP_LEVEL',
+    'nitrogen_dioxide (μg/m³)': 'nitrogen_dioxide (μg/m³)',
+    'carbon_monoxide (μg/m³)': 'carbon_monoxide (μg/m³)',
+    'uv_index ()': 'uv_index ()',
+    'ozone (μg/m³)': 'ozone (μg/m³)',
+    'MMWR_WEEK': 'MMWR_WEEK',
+}
+
 Prefixes = TypedDict('Prefixes', {
     '03_30_data_preparation_yeo_johnson_': str,
     '03_30_data_preparation_respiratory_virus_dashboard_': str,
@@ -262,6 +280,7 @@ Files = TypedDict('Files', {
     'data/03-26-respiratory-virus-dashboard-pre-narrowed.csv': str,
     'data/04-01-open-meteo-cleaned-aggregated.csv': str,
     'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv': str,
+    'data/04-03-dataset.csv': str,
 })
 
 files: Files = {
@@ -271,4 +290,5 @@ files: Files = {
     'data/03-26-respiratory-virus-dashboard-pre-narrowed.csv': 'data/03-26-respiratory-virus-dashboard-pre-narrowed.csv',
     'data/04-01-open-meteo-cleaned-aggregated.csv': 'data/04-01-open-meteo-cleaned-aggregated.csv',
     'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv': 'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv',
+    'data/04-03-dataset.csv': 'data/04-03-dataset.csv'
 }

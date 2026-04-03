@@ -1,4 +1,4 @@
-from src.enums import aq_keys, measurements, rv_keys, keys
+from src.enums import aq_keys, measurements, rv_keys, prep_keys
 
 aq_measurements = {
     aq_keys['time']: measurements['interval'],
@@ -138,11 +138,11 @@ rv_descriptions = {
     rv_keys['SEASON_RSV_PED_DEATHS']: 'Number of RSV-associated pediatric deaths with lab-confirmation each week.',
 }
 
-stitched_measurements = {
-    **{ key: aq_measurements[key] for key in keys.values() if key in aq_measurements},
-    **{ key: rv_measurements[key] for key in keys.values() if key in rv_measurements},
+prep_measurements = {
+    **{key: aq_measurements[key] for key in prep_keys.values() if key in aq_measurements},
+    **{key: rv_measurements[key] for key in prep_keys.values() if key in rv_measurements},
 }
-stitched_descriptions = {
-    **{ key: aq_descriptions[key] for key in keys.values() if key in aq_descriptions},
-    **{ key: rv_descriptions[key] for key in keys.values() if key in rv_descriptions},
+prep_descriptions = {
+    **{key: aq_descriptions[key] for key in prep_keys.values() if key in aq_descriptions},
+    **{key: rv_descriptions[key] for key in prep_keys.values() if key in rv_descriptions},
 }

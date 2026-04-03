@@ -94,11 +94,11 @@ def compare_distributions(df_original: pd.DataFrame, df_target: pd.DataFrame, co
 
         df_original.plot(y=[column], ax=axes[1, 0], title='Line chart (Original)', kind='line')
         sns.regplot(data=df_original, x=df_original.index, y=column, ax=axes[1, 0], scatter=False,
-                    color='lightblue')
+                    color='gold')
 
         df_target.plot(y=[column], ax=axes[1, 1], title='Line chart (Target)', kind='line')
         sns.regplot(data=df_target, x=df_target.index, y=column, ax=axes[1, 1], scatter=False,
-                    color='lightblue')
+                    color='gold')
 
         plt.tight_layout()
         plt.show()

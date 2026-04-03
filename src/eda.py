@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 
 from pandas.api.types import is_numeric_dtype
 from scipy import stats
+from sklearn.preprocessing import MinMaxScaler
 
 
 def understand_features(df: pd.DataFrame, measurements: dict, descriptions: dict) -> pd.DataFrame:
@@ -144,3 +145,30 @@ def correlate_features(df: pd.DataFrame, **kwargs):
     plt.title('Air Quality relevant correlation heat map')
     sns.heatmap(data=corr, annot=True, cmap='coolwarm', annot_kws={ 'size': font_size }, mask=np.abs(corr) < relevance)
     plt.show()
+
+def scatter_plot_features(df: pd.DataFrame, scatter_plots: list):
+    for keys in scatter_plots:
+        plt.figure()
+        sns.regplot(
+            data=df,
+            x=keys[0],
+            y=keys[1],
+            scatter_kws={'alpha': 0.5},
+            line_kws={'color': 'gold'}
+        )
+        plt.title(f"Correlation of {keys[0]} and {keys[1]}")
+
+def line_plot_features(df: pd.DataFrame, line_plots: list):
+    df_scaled = df.copy()
+    features = list(set(item for lineplot in line_plots for item in lineplot))
+    scaler = MinMaxScaler()
+    df_scaled[features] = scaler.fit_transform(df[features])
+    for keys in line_plots:
+        plt.figure()
+        for key in keys:
+            sns.lineplot(data=df_scaled, x=df.index, y=key, label=key, alpha=0.8)
+
+        plt.title(f"Trend between {keys[0]} and {keys[1]}")
+        plt.xlabel('Index')
+        plt.grid(True, alpha=0.3)
+        plt.show()

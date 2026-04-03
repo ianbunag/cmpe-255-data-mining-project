@@ -255,7 +255,7 @@ prefixes: Prefixes = {
     '04_01_data_preparation_': '04_01_data_preparation_'
 }
 
-File = TypedDict('File', {
+Files = TypedDict('Files', {
     'data/02-28-open-meteo-base.csv': str,
     'data/02-28-respiratory-virus-dashboard-base.csv': str,
     'data/03-26-open-meteo-pre-narrowed.csv': str,
@@ -264,7 +264,7 @@ File = TypedDict('File', {
     'data/04-01-respiratory-virus-dashboard-cleaned-transformed.csv': str,
 })
 
-file: File = {
+files: Files = {
     'data/02-28-open-meteo-base.csv': 'data/02-28-open-meteo-base.csv',
     'data/02-28-respiratory-virus-dashboard-base.csv': 'data/02-28-respiratory-virus-dashboard-base.csv',
     'data/03-26-open-meteo-pre-narrowed.csv': 'data/03-26-open-meteo-pre-narrowed.csv',

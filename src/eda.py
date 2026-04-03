@@ -184,7 +184,7 @@ def line_plot_features(df: pd.DataFrame, line_plots: list):
         for key in keys:
             sns.lineplot(data=df_scaled, x=df.index, y=key, label=key, alpha=0.8)
 
-        plt.title(f"Trend between {keys[0]} and {keys[1]}")
+        plt.title(f"Scaled trend between {keys[0]} and {keys[1]}")
         plt.xlabel('Index')
         plt.grid(True, alpha=0.3)
         plt.show()

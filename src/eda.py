@@ -60,10 +60,15 @@ def find_central_tendency(df: pd.DataFrame, measurements: dict, rounding : int |
             skew_directions[key] = 'N/A'
             continue
 
-        means[key] = round(df[key].mean(), rounding)
-        medians[key] = round(df[key].median(), rounding)
-        skew = round(df[key].skew(), rounding)
+        means[key] = df[key].mean()
+        medians[key] = df[key].median()
+        skew = df[key].skew()
         skews[key] = skew
+
+        if rounding is not None:
+            means[key] = round(means[key], rounding)
+            medians[key] = round(medians[key], rounding)
+            skew = round(skew, rounding)
 
         if -0.5 <= skew <= 0.5:
             skew_directions[key] = 'Symmetrical'  # Mean = Median
@@ -93,13 +98,23 @@ def measure_variability(df: pd.DataFrame, rounding: int | None = 2) -> pd.DataFr
             continue
 
         v = df[key].dropna()
-        q1 = round(np.percentile(v, 25), rounding)
-        q3 = round(np.percentile(v, 75), rounding)
-        iqr = round(stats.iqr(v), rounding)
-        lower_limit = round(q1 - 1.5 * iqr, rounding)
-        upper_limit = round(q3 + 1.5 * iqr, rounding)
-        std_dev = round(np.std(v), rounding)
-        cv = round(stats.variation(v), rounding)
+        q1 = np.percentile(v, 25)
+        q3 = np.percentile(v, 75)
+        iqr = stats.iqr(v)
+        lower_limit = q1 - 1.5 * iqr
+        upper_limit = q3 + 1.5 * iqr
+        std_dev = np.std(v)
+        cv = stats.variation(v)
+
+        if rounding is not None:
+            q1 = round(q1, rounding)
+            q3 = round(q3, rounding)
+            iqr = round(iqr, rounding)
+            lower_limit = round(lower_limit, rounding)
+            upper_limit = round(upper_limit, rounding)
+            std_dev = round(std_dev, rounding)
+            cv = round(cv, rounding)
+
         table_rows.append([
             key,
             q1,
@@ -157,6 +172,7 @@ def scatter_plot_features(df: pd.DataFrame, scatter_plots: list):
             line_kws={'color': 'gold'}
         )
         plt.title(f"Correlation of {keys[0]} and {keys[1]}")
+        plt.show()
 
 def line_plot_features(df: pd.DataFrame, line_plots: list):
     df_scaled = df.copy()

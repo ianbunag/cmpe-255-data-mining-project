@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
+from matplotlib import pyplot as plt
 
 from pandas.api.types import is_numeric_dtype
 from scipy import stats
@@ -109,3 +111,36 @@ def measure_variability(df: pd.DataFrame, rounding: int | None = 2) -> pd.DataFr
         ])
 
     return pd.DataFrame(data=table_rows, columns=table_columns)
+
+# Histogram guide:https://www.stratascratch.com/blog/how-to-create-a-matplotlib-histogram
+def visualize_distribution(df: pd.DataFrame):
+    for key in df.columns:
+        if not is_numeric_dtype(df[key]):
+            continue
+        v = df[key].dropna()
+        plt.figure(figsize=(12, 4))
+        plt.subplot(1, 2, 1)
+        plt.title("Histogram: " + key)
+        plt.xlabel(key)
+        plt.hist(v, alpha=0.6, bins=20, color='lightsalmon', edgecolor='black')
+
+        plt.subplot(1, 2, 2)
+        plt.title("Box plot: " + key)
+        plt.xlabel(key)
+        plt.boxplot(v)
+        plt.show()
+
+def correlate_features(df: pd.DataFrame, **kwargs):
+    relevance = kwargs.get('relevance', 0.7)
+    font_size = kwargs.get('font_size', None)
+
+    corr = df.corr(numeric_only=True)
+    plt.figure(figsize=(15, 10))
+    plt.title('Air Quality correlation heat map')
+    sns.heatmap(data=corr, annot=True, cmap='coolwarm', annot_kws={ 'size': font_size })
+    plt.show()
+
+    plt.figure(figsize=(15, 10))
+    plt.title('Air Quality relevant correlation heat map')
+    sns.heatmap(data=corr, annot=True, cmap='coolwarm', annot_kws={ 'size': font_size }, mask=np.abs(corr) < relevance)
+    plt.show()

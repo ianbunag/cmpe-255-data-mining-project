@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 
 from pandas.api.types import is_numeric_dtype
 from scipy import stats
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 
 def understand_features(df: pd.DataFrame, measurements: dict, descriptions: dict) -> pd.DataFrame:
@@ -177,14 +177,14 @@ def scatter_plot_features(df: pd.DataFrame, scatter_plots: list):
 def line_plot_features(df: pd.DataFrame, line_plots: list):
     df_scaled = df.copy()
     features = list(set(item for lineplot in line_plots for item in lineplot))
-    scaler = MinMaxScaler()
+    scaler = StandardScaler()
     df_scaled[features] = scaler.fit_transform(df[features])
     for keys in line_plots:
         plt.figure()
         for key in keys:
             sns.lineplot(data=df_scaled, x=df.index, y=key, label=key, alpha=0.8)
 
-        plt.title(f"Trend between {keys[0]} and {keys[1]}")
+        plt.title(f"Scaled trend between {keys[0]} and {keys[1]}")
         plt.xlabel('Index')
         plt.grid(True, alpha=0.3)
         plt.show()

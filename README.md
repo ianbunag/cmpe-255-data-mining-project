@@ -8,7 +8,11 @@
 
 ## Process flow
 
-https://lucid.app/lucidchart/106d7350-00d9-42dd-b336-35c053066ba0/view?page=0_0#
+https://lucid.app/lucidchart/106d7350-00d9-42dd-b336-35c053066ba0/view?invitationId=inv_60382fc1-fd5c-4b25-b255-b53ef39e1f3f&page=0_0#
+
+## Correlation map
+
+https://lucid.app/lucidchart/106d7350-00d9-42dd-b336-35c053066ba0/view?invitationId=inv_60382fc1-fd5c-4b25-b255-b53ef39e1f3f&page=7ZSKnV9w2JTQ#
 
 ## Transformation history
 

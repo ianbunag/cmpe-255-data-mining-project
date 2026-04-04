@@ -149,7 +149,7 @@ prep_descriptions = {
 
 df_measurements = {
     **{key: aq_measurements[key] for key in keys.values() if key in aq_measurements},
-    **{key: rv_descriptions[key] for key in keys.values() if key in rv_measurements},
+    **{key: rv_measurements[key] for key in keys.values() if key in rv_measurements},
 }
 df_descriptions = {
     **{key: aq_descriptions[key] for key in keys.values() if key in aq_descriptions},

@@ -264,13 +264,15 @@ keys: Keys = {
 Prefixes = TypedDict('Prefixes', {
     '03_30_data_preparation_yeo_johnson_': str,
     '03_30_data_preparation_respiratory_virus_dashboard_': str,
-    '04_01_data_preparation_': str
+    '04_01_data_preparation_': str,
+    '04_03_data_mining_folds_': str
 })
 
 prefixes: Prefixes = {
     '03_30_data_preparation_yeo_johnson_': '03_30_data_preparation_yeo_johnson_',
     '03_30_data_preparation_respiratory_virus_dashboard_': '03_30_data_preparation_respiratory_virus_dashboard_',
-    '04_01_data_preparation_': '04_01_data_preparation_'
+    '04_01_data_preparation_': '04_01_data_preparation_',
+    '04_03_data_mining_folds_': '04_03_data_mining_folds_'
 }
 
 Files = TypedDict('Files', {

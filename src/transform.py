@@ -11,7 +11,7 @@ class Transformation(Enum):
     LOG1P = 'log1p'
     YEO_JOHNSON = 'yeo-johnson'
 
-def transform(df: pandas.DataFrame, transformations: dict, dump_prefix: str = ''):
+def transform(df: pandas.DataFrame, transformations: dict, dump_prefix: str = '') -> pandas.DataFrame:
     transformed = df.copy()
 
     for feature, transformation in transformations.items():

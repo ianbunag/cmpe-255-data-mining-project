@@ -1,4 +1,4 @@
-from src.enums import aq_keys, measurements, rv_keys, prep_keys
+from src.enums import aq_keys, measurements, rv_keys, prep_keys, keys
 
 aq_measurements = {
     aq_keys['time']: measurements['interval'],
@@ -145,4 +145,13 @@ prep_measurements = {
 prep_descriptions = {
     **{key: aq_descriptions[key] for key in prep_keys.values() if key in aq_descriptions},
     **{key: rv_descriptions[key] for key in prep_keys.values() if key in rv_descriptions},
+}
+
+df_measurements = {
+    **{key: aq_measurements[key] for key in keys.values() if key in aq_measurements},
+    **{key: rv_descriptions[key] for key in keys.values() if key in rv_measurements},
+}
+df_descriptions = {
+    **{key: aq_descriptions[key] for key in keys.values() if key in aq_descriptions},
+    **{key: rv_descriptions[key] for key in keys.values() if key in rv_descriptions},
 }

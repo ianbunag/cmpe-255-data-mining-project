@@ -152,12 +152,12 @@ def correlate_features(df: pd.DataFrame, **kwargs):
 
     corr = df.corr(numeric_only=True)
     plt.figure(figsize=(15, 10))
-    plt.title('Air Quality correlation heat map')
+    plt.title('Correlation heat map')
     sns.heatmap(data=corr, annot=True, cmap='coolwarm', annot_kws={ 'size': font_size })
     plt.show()
 
     plt.figure(figsize=(15, 10))
-    plt.title('Air Quality relevant correlation heat map')
+    plt.title('Relevant correlation heat map')
     sns.heatmap(data=corr, annot=True, cmap='coolwarm', annot_kws={ 'size': font_size }, mask=np.abs(corr) < relevance)
     plt.show()
 

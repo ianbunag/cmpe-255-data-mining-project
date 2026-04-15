@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 
 from pandas.api.types import is_numeric_dtype
 from scipy import stats
+from scipy.stats import ttest_ind, norm
 from sklearn.preprocessing import StandardScaler
 
 
@@ -188,3 +189,52 @@ def line_plot_features(df: pd.DataFrame, line_plots: list):
         plt.xlabel('Index')
         plt.grid(True, alpha=0.3)
         plt.show()
+
+def hypothesis_z_test(control_group_name: str, df_control_group: pd.DataFrame, test_group_name: str, df_test_group: pd.DataFrame, tests: list[dict]):
+    for test in tests:
+        column = test["column"]
+        confidence_level = test["confidence_level"] # Confidence level in decimal number, e.g. 0.95 for 95% confidence.
+        alternative = test["alternative"] # less, greater, or two-sided.
+
+        a = df_control_group[column].cat.codes if hasattr(df_control_group[column], 'cat') else df_control_group[column]
+        b = df_test_group[column].cat.codes if hasattr(df_test_group[column], 'cat') else df_test_group[column]
+
+        alpha = 1 - confidence_level
+        t_statistic, p_value = ttest_ind(a=a, b=b, alternative=alternative, equal_var=False)
+
+        x = np.arange(-4, 4, 0.01)
+        pdf = norm.pdf(x)
+
+        if alternative == 'less':
+            critical_z = norm.ppf(alpha)
+            interval = (x < critical_z)
+            label_null_hypothesis = f"H0: where {column} {control_group_name} >= {test_group_name}"
+        elif alternative == 'greater':
+            critical_z = norm.ppf(1 - alpha)
+            interval = (x > critical_z)
+            label_null_hypothesis = f"H0: where {column} {control_group_name} <= {test_group_name}"
+        elif alternative == 'two-sided':
+            critical_z = norm.ppf(alpha / 2)
+            interval = (x < critical_z) | (x > -critical_z)
+            label_null_hypothesis = f"H0: where {column} {control_group_name} == {test_group_name}"
+        else:
+            raise ValueError("Alternative must be 'less', 'greater', or 'two-sided'.")
+
+        plt.plot(x, pdf, color='blue')
+        plt.fill_between(x, 0, 0.45, where=interval, color='blue', alpha=0.2, label=f'H1 region at {confidence_level * 100:.0f}% confidence level')
+
+        t_statistic_line = max(min(t_statistic, 3.9), -3.9)
+        plt.axvline(x=t_statistic_line, color='gold', label=f'T-statistic: {t_statistic:.2f}')
+
+        plt.ylim(0, 0.45)
+        plt.title(f"Hypothesis test for {label_null_hypothesis}")
+        plt.legend(loc='upper right')
+        plt.show()
+
+        print(f"T-statistic: {t_statistic:.2f}")
+        print(f"P-value: {p_value:.2e}")
+
+        if p_value > alpha:
+            print(f"Conclusion: Cannot reject null hypothesis {label_null_hypothesis} (There is no significant difference between the groups).")
+        else:
+            print(f"Conclusion: Cannot accept null hypothesis {label_null_hypothesis} (There is a significant difference between the groups).")

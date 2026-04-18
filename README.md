@@ -1,5 +1,7 @@
 # CMPE-255 Data Mining Project
 
+Air Quality Analysis for Health and Environmental Protection
+
 ## Owners
 
 - [Hung Pham](https://github.com/hung-p)
